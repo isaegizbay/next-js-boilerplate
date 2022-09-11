@@ -1,0 +1,5 @@
+export enum UserTypes {
+	MAINTAINER = 'MAINTAINER',
+	DEVELOPER = 'DEVELOPER',
+	GUEST = 'GUEST'
+}
