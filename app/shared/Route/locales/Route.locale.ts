@@ -1,8 +1,7 @@
-import { EntityNames } from '@app/shared/Entity/enums/EntityNames';
+import { EntityNames } from 'app/shared/Entity/enums';
 
-export default {
+const tranlations = {
 	en: {
-		[EntityNames.EXPERIMENT]: 'Experiments',
 		[EntityNames.MEMBER]: 'Members',
 
 		profile: 'Profile',
@@ -10,7 +9,6 @@ export default {
 		'profile-permissions': 'Permissions'
 	},
 	ru: {
-		[EntityNames.EXPERIMENT]: 'Эксперименты',
 		[EntityNames.MEMBER]: 'Пользователи',
 
 		profile: 'Профиль',
@@ -18,3 +16,5 @@ export default {
 		'profile-permissions': 'Доступы'
 	}
 };
+
+export default tranlations;

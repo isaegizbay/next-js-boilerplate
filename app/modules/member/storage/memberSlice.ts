@@ -1,4 +1,4 @@
-import { createReducer, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { IMemberModuleState } from 'app/modules/member/types/IMemberModuleState';
 import { EntityNames } from 'app/shared/Entity/enums';
 import { entityReducers } from 'app/shared/Entity/constants/entityReducers';
@@ -10,7 +10,6 @@ const initialState: IMemberModuleState = {
 	counter: 1
 };
 
-
 export const memberSlice = createSlice({
 	name: EntityNames.MEMBER,
 	initialState,
@@ -21,5 +20,3 @@ export const memberSlice = createSlice({
 		}
 	}
 });
-
-

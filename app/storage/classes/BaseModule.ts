@@ -3,7 +3,7 @@ import { AppDispatch } from '../types';
 
 export abstract class BaseModule<
 	State,
-	Actions extends CaseReducerActions<SliceCaseReducers<State>> | any
+	Actions extends CaseReducerActions<SliceCaseReducers<State>>
 > {
 	protected constructor(
 		protected _state: State,
@@ -11,7 +11,5 @@ export abstract class BaseModule<
 		protected _dispatch: AppDispatch
 	) {}
 
-	get state() {
-		return this._state;
-	}
+	abstract state: State;
 }

@@ -1,8 +1,8 @@
-import { EntityActions } from '@app/shared/Entity/enums/EntityActions';
-import type { IEntityRecord } from '@app/shared/Entity/types/IEntityRecord';
+import { IEntityRecord } from "./IEntityRecord";
+import { EntityUserActions } from "../enums";
 
 export interface IEntity extends IEntityRecord {
 	recordId: number;
 	id: number;
-	actions: EntityActions[];
+	actions: EntityUserActions[];
 }

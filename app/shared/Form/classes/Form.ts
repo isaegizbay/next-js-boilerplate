@@ -1,6 +1,7 @@
 import { Field } from 'app/shared/Form/classes/';
+import { AnyObject } from 'app/utils/types';
 
-export class Form<P extends {} = any> {
+export class Form<P extends AnyObject> {
 	fields: Field<P[keyof P]>[];
 
 	constructor(fields: Field<P[keyof P]>[]) {
@@ -8,30 +9,24 @@ export class Form<P extends {} = any> {
 	}
 
 	get payload(): P {
-		return this.fields.reduce((payload: any, field) => {
+		return this.fields.reduce((payload: P, field) => {
 			const fieldName = field.name as keyof P;
 			payload[fieldName] = field.value;
 			return payload;
-		}, {}) as P;
+		}, {} as P);
 	}
 
 	async validateField(value: P[keyof P], fieldName: keyof P) {
-		try {
-			const field = this.fields.find((field) => field.name === fieldName);
-			if (!field) {
-				throw new Error(`field ${String(fieldName)} not found`);
-			}
-
-			if (!field.validation) {
-				return true;
-			}
-
-			return await field.validation.validate(value);
-		} catch (error) {
-			// eslint-disable-next-line no-console
-			console.error('Field validation failed', { error });
-			throw error;
+		const field = this.fields.find((field) => field.name === fieldName);
+		if (!field) {
+			throw new Error(`field ${String(fieldName)} not found`);
 		}
+
+		if (!field.validation) {
+			return true;
+		}
+
+		return await field.validation.validate(value);
 	}
 
 	async validateForm() {
@@ -52,7 +47,7 @@ export class Form<P extends {} = any> {
 		}
 	}
 
-	async onSubmit(callback: Function): Promise<void> {
+	async onSubmit(callback: () => void): Promise<void> {
 		try {
 			const isFormValid = await this.validateForm();
 			if (isFormValid) {

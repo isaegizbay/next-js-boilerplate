@@ -5,22 +5,13 @@ export interface IEntityServiceStrategy<E extends IEntityRecord, C, U> {
 	fetchRecords(
 		page: number,
 		callbacks: IApiResponseCallbacks<IEntityPagination<E>>
-	): Promise<void>;
+	): void;
 
-	fetchRecord(): Promise<E>;
+	fetchRecord(id: number, callbacks: IApiResponseCallbacks<E>): void;
 
-	createRecord(
-		payload: C,
-		callbacks: IApiResponseCallbacks<{ message: string }>
-	): Promise<void>;
+	createRecord(payload: C, callbacks: IApiResponseCallbacks): void;
 
-	updateRecord(
-		payload: U,
-		callbacks: IApiResponseCallbacks<{ message: string }>
-	): Promise<void>;
+	updateRecord(payload: U, callbacks: IApiResponseCallbacks): void;
 
-	deleteRecord(
-		recordId: number,
-		callbacks: IApiResponseCallbacks<{ message: string }>
-	): Promise<void>;
+	deleteRecord(recordId: number, callbacks: IApiResponseCallbacks): void;
 }

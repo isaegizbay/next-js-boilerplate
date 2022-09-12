@@ -1,4 +1,4 @@
-import { UserTypes } from '@app/shared/User/enums/UserTypes';
+import { UserTypes } from 'app/shared/User/enums';
 
 export interface CreateMemberPayload {
 	email: string;
