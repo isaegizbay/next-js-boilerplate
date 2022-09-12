@@ -2,7 +2,7 @@ import type { IEntity } from 'app/shared/Entity/types';
 import type { MemberDto } from 'app/modules/member/types';
 import { UserTypes } from 'app/shared/User/enums';
 import type { AuthDto } from 'app/shared/User/types';
-import { EntityActions } from 'app/shared/Entity/enums';
+import { EntityUserActions } from 'app/shared/Entity/enums';
 
 export class Member implements IEntity, MemberDto {
 	recordId: number;
@@ -40,8 +40,8 @@ export class Member implements IEntity, MemberDto {
 		return `${this.firstName} ${this.lastName}`;
 	}
 
-	get actions(): EntityActions[] {
-		const actionsSet = [EntityActions.EDIT, EntityActions.DELETE];
+	get actions(): EntityUserActions[] {
+		const actionsSet = [EntityUserActions.EDIT, EntityUserActions.DELETE];
 		return this.isMemberAuthUser ? [] : actionsSet;
 	}
 }

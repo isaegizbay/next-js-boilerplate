@@ -4,12 +4,11 @@ import Image from 'next/image';
 import { useMemberModule } from 'app/modules/member/storage';
 import { useEffectOnce } from 'app/utils/hooks/';
 import styles from '../styles/Home.module.css';
-import { useEffect } from "react";
 
 const Home: NextPage = () => {
 	const memberModule = useMemberModule();
 	useEffectOnce(() => {
-			memberModule.fetch(1);
+		memberModule.fetch(1);
 
 		memberModule.increment();
 		console.log(memberModule.state.counter);
@@ -36,7 +35,7 @@ const Home: NextPage = () => {
 				<button onClick={() => memberModule.increment()}>increment</button>
 
 				<button onClick={() => console.log(memberModule.state.counter)}>
-					logCounter { memberModule.state.counter }
+					logCounter {memberModule.state.counter}
 				</button>
 
 				<div className={styles.grid}>
@@ -86,4 +85,5 @@ const Home: NextPage = () => {
 	);
 };
 
+// noinspection JSUnusedGlobalSymbols
 export default Home;

@@ -7,7 +7,7 @@ import {
 } from 'app/modules/member/types';
 import type { IMemberModuleState } from 'app/modules/member/types/IMemberModuleState';
 import { memberSlice } from 'app/modules/member/storage/memberSlice';
-import { AppDispatch } from "../../../storage/types";
+import { AppDispatch } from '../../../storage/types';
 
 export class MemberModule extends EntityModule<
 	Member,
@@ -21,6 +21,10 @@ export class MemberModule extends EntityModule<
 		protected _dispatch: AppDispatch
 	) {
 		super(_service, _state, _actions, _dispatch);
+	}
+
+	get state() {
+		return this._state;
 	}
 
 	increment() {

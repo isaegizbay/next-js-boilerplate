@@ -1,3 +1,3 @@
 export * from './EntityNames';
-export * from './EntityActions';
+export * from './EntityUserActions';
 export * from './EntityFormMode';

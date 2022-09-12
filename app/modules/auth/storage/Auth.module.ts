@@ -20,6 +20,10 @@ export class AuthModule extends BaseModule<
 		super(_state, _actions, _dispatch);
 	}
 
+	get state() {
+		return this._state;
+	}
+
 	get user() {
 		const authDto =
 			this.state.authDto || this.authService.getUserFromLocalStorage();

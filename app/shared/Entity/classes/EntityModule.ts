@@ -7,36 +7,20 @@ import type {
 import { EntityFormMode } from '../enums';
 import { BaseModule } from 'app/storage/classes/BaseModule';
 import { AppDispatch } from 'app/storage/types';
-import { entityReducers } from "../constants";
-import {
-	AnyAction,
-	CaseReducerActions,
-	createAction,
-	createReducer,
-	SliceCaseReducers,
-	ThunkDispatch
-} from "@reduxjs/toolkit";
-import { ReducerWithInitialState } from "@reduxjs/toolkit/dist/createReducer";
-import { CaseReducers } from "@reduxjs/toolkit/src/createReducer";
-import entityLocale from "../locales/Entity.locale";
-import { Dispatch } from "react";
-
-type EntityReducerActions = typeof entityReducers;
-
+import { entityReducers } from '../constants';
+import { CaseReducerActions } from '@reduxjs/toolkit';
 
 export abstract class EntityModule<E extends IEntity, C, U> extends BaseModule<
 	IEntityModuleState<E>,
-	any
-	> {
+	CaseReducerActions<typeof entityReducers>
+> {
 	protected constructor(
 		protected _service: IEntityServiceStrategy<E, C, U>,
 		protected _state: IEntityModuleState<E>,
-		protected _actions: any,
-		protected _dispatch:
-			ThunkDispatch<unknown, undefined, AnyAction> & Dispatch<AnyAction>
+		protected _actions: CaseReducerActions<typeof entityReducers>,
+		protected _dispatch: AppDispatch
 	) {
 		super(_state, _actions, _dispatch);
-
 	}
 
 	setIsEntityModalOpen(isOpen: boolean) {
@@ -84,10 +68,6 @@ export abstract class EntityModule<E extends IEntity, C, U> extends BaseModule<
 				resource: null
 			})
 		);
-	}
-
-	async fetchById() {
-		throw new Error('fetchById not implementeed yet');
 	}
 
 	fetch(page = 1) {

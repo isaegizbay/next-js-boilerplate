@@ -1,8 +1,7 @@
-import { EntityNames } from '@app/shared/Entity/enums/EntityNames';
+import { EntityNames } from '../enums';
 
-export default {
+const translations = {
 	en: {
-		[EntityNames.EXPERIMENT]: 'experiment',
 		[EntityNames.MEMBER]: 'member',
 
 		table: {
@@ -11,7 +10,6 @@ export default {
 	},
 
 	ru: {
-		[EntityNames.EXPERIMENT]: 'эксперимент',
 		[EntityNames.MEMBER]: 'пользователь',
 
 		table: {
@@ -19,3 +17,5 @@ export default {
 		}
 	}
 };
+
+export default translations;

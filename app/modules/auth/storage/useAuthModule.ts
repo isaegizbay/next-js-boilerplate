@@ -1,15 +1,15 @@
 import { appContainer } from 'app/container/constants';
 import { TYPES } from 'app/container/constants/TYPES';
-import { MemberModule } from 'app/modules/member/storage/Member.module';
-import type { IMemberService } from 'app/modules/member/types';
 import { authSlice } from './authSlice';
 import { useAppDispatch, useAppSelector } from 'app/storage';
+import { AuthModule } from './Auth.module';
+import { AuthService } from '../services';
 
 export function useAuthModule() {
-	const state = useAppSelector((state) => state.member);
+	const state = useAppSelector((state) => state.auth);
 	const dispatch = useAppDispatch();
 	const actions = authSlice.actions;
 
-	const memberService = appContainer.get<IMemberService>(TYPES.MemberService);
-	return new MemberModule(memberService, state, actions, dispatch);
+	const authService = appContainer.get<AuthService>(TYPES.AuthService);
+	return new AuthModule(authService, state, actions, dispatch);
 }

@@ -1,6 +1,6 @@
-import { UserTypes } from '@app/shared/User/enums/UserTypes';
+import { UserTypes } from '../enums';
 
-export default {
+const translations = {
 	en: {
 		[UserTypes.MAINTAINER]: 'maintainer',
 		[UserTypes.DEVELOPER]: 'developer',
@@ -14,3 +14,5 @@ export default {
 		'user-type': 'Тип пользователя'
 	}
 };
+
+export default translations;
