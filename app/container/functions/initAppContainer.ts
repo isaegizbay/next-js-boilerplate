@@ -9,7 +9,7 @@ import { TestAppContainerInitializer } from 'app/container/classes/TestAppContai
 import { appContainer } from 'app/container/constants';
 
 export async function initAppContainer(strategy: AppContainerStrategies) {
-	appContainer.unbindAll();
+	await appContainer.unbindAllAsync();
 	let initializer: IAppContainerInitializerStrategy;
 	switch (strategy) {
 		case AppContainerStrategies.DEFAULT:

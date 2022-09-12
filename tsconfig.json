@@ -18,7 +18,7 @@
 		"types": ["reflect-metadata", "jest"],
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
-		"baseUrl": "./"
+		"baseUrl": "."
 	},
 	"include": [
 		"next-env.d.ts",

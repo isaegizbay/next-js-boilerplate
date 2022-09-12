@@ -5,74 +5,94 @@ import type {
 	IEntityServiceStrategy
 } from '../types';
 import { EntityFormMode } from '../enums';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
-import { Dispatch } from 'react';
-import { entitySlice } from 'app/shared/Entity/constants/entitySlice';
+import { BaseModule } from 'app/storage/classes/BaseModule';
+import { AppDispatch } from 'app/storage/types';
+import { entityReducers } from "../constants";
+import {
+	AnyAction,
+	CaseReducerActions,
+	createAction,
+	createReducer,
+	SliceCaseReducers,
+	ThunkDispatch
+} from "@reduxjs/toolkit";
+import { ReducerWithInitialState } from "@reduxjs/toolkit/dist/createReducer";
+import { CaseReducers } from "@reduxjs/toolkit/src/createReducer";
+import entityLocale from "../locales/Entity.locale";
+import { Dispatch } from "react";
 
-export abstract class EntityModule<E extends IEntity, C, U> {
-	abstract state: IEntityModuleState<E>;
-	abstract dispatch: ThunkDispatch<
-		IEntityModuleState<E>,
-		undefined,
-		AnyAction
-	> &
-		Dispatch<AnyAction>;
-	abstract entityServiceInstance: IEntityServiceStrategy<E, C, U>;
+type EntityReducerActions = typeof entityReducers;
+
+
+export abstract class EntityModule<E extends IEntity, C, U> extends BaseModule<
+	IEntityModuleState<E>,
+	any
+	> {
+	protected constructor(
+		protected _service: IEntityServiceStrategy<E, C, U>,
+		protected _state: IEntityModuleState<E>,
+		protected _actions: any,
+		protected _dispatch:
+			ThunkDispatch<unknown, undefined, AnyAction> & Dispatch<AnyAction>
+	) {
+		super(_state, _actions, _dispatch);
+
+	}
 
 	setIsEntityModalOpen(isOpen: boolean) {
-		this.dispatch(entitySlice.actions.setIsEntityModalOpen(isOpen));
+		this._dispatch(this._actions.setIsEntityModalOpen(isOpen));
 	}
 
 	setEntityFormMode(mode: EntityFormMode) {
-		this.dispatch(entitySlice.actions.setEntityFormMode(mode));
+		this._dispatch(this._actions.setEntityFormMode(mode));
 	}
 
 	setResource(resource: IEntityPagination<E>) {
-		this.dispatch(entitySlice.actions.setResource(resource));
+		this._dispatch(this._actions.setResource(resource));
 	}
 
 	setIsResourceLoading(isLoading: boolean) {
-		this.dispatch(entitySlice.actions.setIsResourceLoading(isLoading));
+		this._dispatch(this._actions.setIsResourceLoading(isLoading));
 	}
 
 	setIsCreateLoading(isLoading: boolean) {
-		this.dispatch(entitySlice.actions.setIsCreateLoading(isLoading));
+		this._dispatch(this._actions.setIsCreateLoading(isLoading));
 	}
 
 	setIsEditLoading(isLoading: boolean) {
-		this.dispatch(entitySlice.actions.setIsEditLoading(isLoading));
+		this._dispatch(this._actions.setIsEditLoading(isLoading));
 	}
 
 	setEditingId(id: number | null) {
-		this.dispatch(entitySlice.actions.setEditingId(id));
+		this._dispatch(this._actions.setEditingId(id));
 	}
 
 	setDeletingId(id: number | null) {
-		this.dispatch(entitySlice.actions.setDeletingId(id));
+		this._dispatch(this._actions.setDeletingId(id));
 	}
 
 	resetState() {
-		entitySlice.actions.resetState({
-			deletingId: null,
-			editingId: null,
-			entityFormMode: EntityFormMode.CREATE,
-			isCreateLoading: false,
-			isEditLoading: false,
-			isEntityModalOpen: false,
-			isResourceLoading: false,
-			resource: null
-		});
+		this._dispatch(
+			this._actions.resetState({
+				deletingId: null,
+				editingId: null,
+				entityFormMode: EntityFormMode.CREATE,
+				isCreateLoading: false,
+				isEditLoading: false,
+				isEntityModalOpen: false,
+				isResourceLoading: false,
+				resource: null
+			})
+		);
 	}
 
 	async fetchById() {
-		await new Promise(() => {});
 		throw new Error('fetchById not implementeed yet');
 	}
 
-	fetch(page: number = 1) {
+	fetch(page = 1) {
 		this.setIsResourceLoading(true);
-		this.entityServiceInstance.fetchRecords(page, {
+		this._service.fetchRecords(page, {
 			handleSuccess: (data) => {
 				this.setResource(data);
 				this.setIsResourceLoading(false);
@@ -98,7 +118,7 @@ export abstract class EntityModule<E extends IEntity, C, U> {
 
 	create(payload: C) {
 		this.setIsCreateLoading(true);
-		this.entityServiceInstance.createRecord(payload, {
+		this._service.createRecord(payload, {
 			handleSuccess: (data) => {
 				this.fetch();
 				console.log(data);
@@ -125,7 +145,7 @@ export abstract class EntityModule<E extends IEntity, C, U> {
 	edit(payload: U) {
 		this.setIsEditLoading(true);
 		const p = { id: this.state.editingId, ...payload };
-		this.entityServiceInstance.updateRecord(p, {
+		this._service.updateRecord(p, {
 			handleSuccess: (data) => {
 				console.log(data);
 				this.fetch();
@@ -152,7 +172,7 @@ export abstract class EntityModule<E extends IEntity, C, U> {
 
 	delete(id: number) {
 		this.setDeletingId(id);
-		this.entityServiceInstance.deleteRecord(id, {
+		this._service.deleteRecord(id, {
 			handleSuccess: (data) => {
 				console.log(data);
 				this.fetch();

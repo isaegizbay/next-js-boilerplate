@@ -1,22 +1,29 @@
+import { AuthService } from '../services';
+import { AuthDto } from 'app/shared/User/types';
+import { UserTypes } from '../../../shared/User/enums';
+import { Developer, Guest, Maintainer } from '../../../shared/User/classes';
+import { IAuthModuleState, LoginPayload } from '../types';
+import { authSlice } from './authSlice';
+import { AppDispatch } from '../../../storage/types';
+import { BaseModule } from '../../../storage/classes/BaseModule';
 
-@Module
-export class AuthModule extends {
-	private authService: AuthService;
-	private userDto: AuthDto | null = null;
-	isUserLoading = false;
-	isAuthLoading = false;
-
+export class AuthModule extends BaseModule<
+	IAuthModuleState,
+	typeof authSlice.actions
+> {
 	constructor(
-		@inject(DependencyIds.AuthService) authService: AuthService,
-		store: Store<IRootState>
+		protected authService: AuthService,
+		protected _state: IAuthModuleState,
+		protected _actions: typeof authSlice.actions,
+		protected _dispatch: AppDispatch
 	) {
-		super({ store, name: 'auth' });
-		this.authService = authService;
+		super(_state, _actions, _dispatch);
 	}
 
 	get user() {
-		const userDto = this.userDto || this.authService.getUserFromLocalStorage();
-		return userDto ? this.authService.buildUserInstance(userDto) : null;
+		const authDto =
+			this.state.authDto || this.authService.getUserFromLocalStorage();
+		return authDto ? this.authService.buildUserInstance(authDto) : null;
 	}
 
 	get isLoggedIn() {
@@ -25,7 +32,7 @@ export class AuthModule extends {
 	}
 
 	get isLoading() {
-		return this.isUserLoading || this.isAuthLoading;
+		return this.state.isUserLoading || this.state.isAuthLoading;
 	}
 
 	get maintainer() {
@@ -46,23 +53,19 @@ export class AuthModule extends {
 			: null;
 	}
 
-	@Mutation
-	setUser(user: AuthDto | null) {
-		this.userDto = user;
-		this.authService.setUserToLocalStorage(user);
+	setAuthDto(authDto: AuthDto | null) {
+		this._dispatch(this._actions.setAuthDto(authDto));
+		this.authService.setUserToLocalStorage(authDto);
 	}
 
-	@Mutation
 	setAuthLoading(isLoading: boolean) {
-		this.isAuthLoading = isLoading;
+		this._dispatch(this._actions.setAuthLoading(isLoading));
 	}
 
-	@Mutation
 	setUserLoading(isLoading: boolean) {
-		this.isUserLoading = isLoading;
+		this._dispatch(this._actions.setUserLoading(isLoading));
 	}
 
-	@Action
 	async login(payload: LoginPayload) {
 		try {
 			this.setAuthLoading(true);
@@ -78,20 +81,18 @@ export class AuthModule extends {
 		}
 	}
 
-	@Action
 	logout() {
-		this.setUser(null);
+		this.setAuthDto(null);
 		localStorage.clear();
 	}
 
-	@Action
 	async getUser(token: string) {
 		try {
 			this.setUserLoading(true);
 			const user = await this.authService.getUserByToken(token);
-			this.setUser(user);
+			this.setAuthDto(user);
 		} catch (error) {
-			this.setUser(null);
+			this.setAuthDto(null);
 		} finally {
 			this.setUserLoading(false);
 		}

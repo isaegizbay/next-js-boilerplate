@@ -5,11 +5,9 @@ import {
 	IMemberService,
 	UpdateMemberPayload
 } from 'app/modules/member/types';
-import { AnyAction } from 'redux';
 import type { IMemberModuleState } from 'app/modules/member/types/IMemberModuleState';
-import { ThunkDispatch } from 'redux-thunk';
-import { useAppSelector } from 'app/storage/redux/hooks';
 import { memberSlice } from 'app/modules/member/storage/memberSlice';
+import { AppDispatch } from "../../../storage/types";
 
 export class MemberModule extends EntityModule<
 	Member,
@@ -17,10 +15,15 @@ export class MemberModule extends EntityModule<
 	UpdateMemberPayload
 > {
 	constructor(
-		public entityServiceInstance: IMemberService,
-		public state: IMemberModuleState,
-		public dispatch: ThunkDispatch<IMemberModuleState, undefined, AnyAction>
+		protected _service: IMemberService,
+		protected _state: IMemberModuleState,
+		protected _actions: typeof memberSlice.actions,
+		protected _dispatch: AppDispatch
 	) {
-		super();
+		super(_service, _state, _actions, _dispatch);
+	}
+
+	increment() {
+		this._dispatch(this._actions.increment());
 	}
 }
