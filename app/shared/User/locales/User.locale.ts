@@ -1,6 +1,6 @@
 import { UserTypes } from '../enums';
 
-const translations = {
+const UserLocale = {
 	en: {
 		[UserTypes.MAINTAINER]: 'maintainer',
 		[UserTypes.DEVELOPER]: 'developer',
@@ -15,4 +15,4 @@ const translations = {
 	}
 };
 
-export default translations;
+export default UserLocale;

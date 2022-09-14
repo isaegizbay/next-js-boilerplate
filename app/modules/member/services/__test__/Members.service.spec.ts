@@ -65,7 +65,8 @@ const editMemberPayload: UpdateMemberPayload = {
 	userType: UserTypes.MAINTAINER
 };
 
-const responseSchema = {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _responseSchema = {
 	records: expect.any(Array),
 	currentPage: 1,
 	totalPagesCount: expect.any(Number),
@@ -73,7 +74,8 @@ const responseSchema = {
 	totalRecordsCount: expect.any(Number)
 };
 
-const memberDtoSchema = {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _memberDtoSchema = {
 	recordId: expect.any(Number),
 	id: expect.any(Number),
 	firstName: expect.any(String),
@@ -90,22 +92,22 @@ function mockMemberServiceMethodsCallbacks() {
 	memberServiceMethodsCallbacks.handleSuccess = jest.fn();
 	memberServiceMethodsCallbacks.handleClientError = jest
 		.fn()
-		.mockImplementation((error) => {
+		.mockImplementation((_error) => {
 			// console.log('clientError', { error });
 		});
 	memberServiceMethodsCallbacks.handleNetworkError = jest
 		.fn()
-		.mockImplementation((error) => {
+		.mockImplementation((_error) => {
 			// console.log({ error });
 		});
 	memberServiceMethodsCallbacks.handleServerError = jest
 		.fn()
-		.mockImplementation((error) => {
+		.mockImplementation((_error) => {
 			// console.log({ error });
 		});
 	memberServiceMethodsCallbacks.handleTimeoutError = jest
 		.fn()
-		.mockImplementation((error) => {
+		.mockImplementation((_error) => {
 			// console.log({ error });
 		});
 	memberServiceMethodsCallbacks.handleUnexpectedError = jest
@@ -176,9 +178,8 @@ describe('Member service', () => {
 		describe.each(errorActionHandlersMap)(
 			'on actionType $actionType expected to call "$handlerName"',
 			({ actionType, getHandler, error }) => {
-				beforeEach(() => {
-					appContainer.unbindAll();
-					initAppContainer(AppContainerStrategies.TEST);
+				beforeEach(async () => {
+					await initAppContainer(AppContainerStrategies.TEST);
 					appContainer
 						.bind<MockAxiosActionTypes>(TYPES.MockAxiosActionTypes)
 						.toConstantValue(actionType as MockAxiosActionTypes);

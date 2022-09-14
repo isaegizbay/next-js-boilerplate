@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 import { BaseApiMock } from "../BaseApiMock";
 import { MockHttpsError } from "../MockHttpsError";
-import { MemberMocksData } from "../member/MemberMocksData";
+import { MemberMocksData } from "./MemberMocksData";
 import type { MemberDto } from "app/modules/member/types";
 
 export class MemberApiMock extends BaseApiMock {

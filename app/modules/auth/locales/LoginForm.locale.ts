@@ -1,4 +1,4 @@
-export default {
+const LoginFormLocale = {
 	en: {
 		cardTitle: 'Login',
 		loginBtn: 'Login',
@@ -23,3 +23,5 @@ export default {
 		}
 	}
 };
+
+export default LoginFormLocale;

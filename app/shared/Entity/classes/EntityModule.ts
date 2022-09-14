@@ -1,3 +1,4 @@
+import { injectable } from 'inversify';
 import type {
 	IEntity,
 	IEntityModuleState,
@@ -5,22 +6,26 @@ import type {
 	IEntityServiceStrategy
 } from '../types';
 import { EntityFormMode } from '../enums';
-import { BaseModule } from 'app/storage/classes/BaseModule';
-import { AppDispatch } from 'app/storage/types';
 import { entityReducers } from '../constants';
 import { CaseReducerActions } from '@reduxjs/toolkit';
+import { Module } from 'app/storage/classes/Module';
 
-export abstract class EntityModule<E extends IEntity, C, U> extends BaseModule<
-	IEntityModuleState<E>,
-	CaseReducerActions<typeof entityReducers>
-> {
-	protected constructor(
-		protected _service: IEntityServiceStrategy<E, C, U>,
-		protected _state: IEntityModuleState<E>,
-		protected _actions: CaseReducerActions<typeof entityReducers>,
-		protected _dispatch: AppDispatch
+@injectable()
+export class EntityModule<
+	Entity extends IEntity,
+	CreateEntityPayload,
+	UpdateEntityPayload,
+	State extends IEntityModuleState<Entity>,
+	Actions extends CaseReducerActions<typeof entityReducers>
+> extends Module<State, Actions> {
+	constructor(
+		protected _service: IEntityServiceStrategy<
+			Entity,
+			CreateEntityPayload,
+			UpdateEntityPayload
+		>
 	) {
-		super(_state, _actions, _dispatch);
+		super();
 	}
 
 	setIsEntityModalOpen(isOpen: boolean) {
@@ -31,7 +36,7 @@ export abstract class EntityModule<E extends IEntity, C, U> extends BaseModule<
 		this._dispatch(this._actions.setEntityFormMode(mode));
 	}
 
-	setResource(resource: IEntityPagination<E>) {
+	setResource(resource: IEntityPagination<Entity>) {
 		this._dispatch(this._actions.setResource(resource));
 	}
 
@@ -96,7 +101,7 @@ export abstract class EntityModule<E extends IEntity, C, U> extends BaseModule<
 		});
 	}
 
-	create(payload: C) {
+	create(payload: CreateEntityPayload) {
 		this.setIsCreateLoading(true);
 		this._service.createRecord(payload, {
 			handleSuccess: (data) => {
@@ -122,7 +127,7 @@ export abstract class EntityModule<E extends IEntity, C, U> extends BaseModule<
 		});
 	}
 
-	edit(payload: U) {
+	edit(payload: UpdateEntityPayload) {
 		this.setIsEditLoading(true);
 		const p = { id: this.state.editingId, ...payload };
 		this._service.updateRecord(p, {

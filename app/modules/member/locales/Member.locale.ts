@@ -1,4 +1,4 @@
-export default {
+const MemberLocale = {
 	en: {
 		columns: {
 			fullName: 'Full name',
@@ -38,3 +38,5 @@ export default {
 		}
 	}
 };
+
+export default MemberLocale;

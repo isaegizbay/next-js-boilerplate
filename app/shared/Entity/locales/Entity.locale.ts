@@ -1,6 +1,6 @@
 import { EntityNames } from '../enums';
 
-const translations = {
+const EntityLocale = {
 	en: {
 		[EntityNames.MEMBER]: 'member',
 
@@ -18,4 +18,4 @@ const translations = {
 	}
 };
 
-export default translations;
+export default EntityLocale;

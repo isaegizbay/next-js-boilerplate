@@ -4,10 +4,10 @@ import { UserTypes } from '../../../shared/User/enums';
 import { Developer, Guest, Maintainer } from '../../../shared/User/classes';
 import { IAuthModuleState, LoginPayload } from '../types';
 import { authSlice } from './authSlice';
-import { AppDispatch } from '../../../storage/types';
-import { BaseModule } from '../../../storage/classes/BaseModule';
+import { AppDispatch } from 'app/storage/types';
+import { Module } from 'app/storage/classes/Module';
 
-export class AuthModule extends BaseModule<
+export class AuthModule extends Module<
 	IAuthModuleState,
 	typeof authSlice.actions
 > {
@@ -17,11 +17,7 @@ export class AuthModule extends BaseModule<
 		protected _actions: typeof authSlice.actions,
 		protected _dispatch: AppDispatch
 	) {
-		super(_state, _actions, _dispatch);
-	}
-
-	get state() {
-		return this._state;
+		super();
 	}
 
 	get user() {

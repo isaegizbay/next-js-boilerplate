@@ -4,7 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="260fb2de-0a50-41b5-aeaa-5de2b8f04955" name="Changes" comment="project setup finished" />
+    <list default="true" id="260fb2de-0a50-41b5-aeaa-5de2b8f04955" name="Changes" comment="project setup finished">
+      <change afterPath="$PROJECT_DIR$/app/container/functions/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/modules/member/types/MemberActions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/container/classes/AppContainerContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/container/classes/AppContainerContext.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/container/classes/TestAppContainerInitializer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/container/classes/TestAppContainerInitializer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/container/constants/TYPES.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/container/constants/TYPES.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/container/functions/bindModules.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/container/functions/bindModules.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/auth/api/Auth.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/auth/api/Auth.api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/auth/locales/LoginForm.locale.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/auth/locales/LoginForm.locale.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/auth/storage/Auth.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/auth/storage/Auth.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/auth/storage/useAuthModule.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/auth/storage/useAuthModule.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/member/classes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/member/classes/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/member/constants/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/member/constants/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/member/enums/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/member/enums/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/member/locales/Member.locale.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/member/locales/Member.locale.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/member/services/__test__/Members.service.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/member/services/__test__/Members.service.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/member/storage/Member.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/member/storage/Member.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/member/storage/useMemberModule.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/member/storage/useMemberModule.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/member/types/MemberDto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/member/types/MemberDto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/member/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/member/types/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/shared/Entity/classes/EntityModule.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/shared/Entity/classes/EntityModule.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/shared/Entity/classes/EntityModuleFactory.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/shared/Entity/locales/Entity.locale.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/shared/Entity/locales/Entity.locale.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/shared/Http/classes/axios/mocks/member/MemberApiMock.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/shared/Http/classes/axios/mocks/member/MemberApiMock.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/shared/User/classes/Guest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/shared/User/classes/Guest.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/shared/User/classes/Maintainer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/shared/User/classes/Maintainer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/shared/User/locales/User.locale.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/shared/User/locales/User.locale.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/storage/classes/BaseModule.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/storage/classes/Module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/storage/types/IModule.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/storage/types/IModule.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/utils/hooks/useEffectOnce.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/utils/hooks/useEffectOnce.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jest/nullOrAny.ts" beforeDir="false" afterPath="$PROJECT_DIR$/jest/nullOrAny.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/_app.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +54,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
   </component>
   <component name="ProblemsViewState">
     <option name="sortByName" value="true" />
@@ -38,13 +75,28 @@
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.selected.package.eslint" value="$PROJECT_DIR$/node_modules/eslint" />
     <property name="node.js.selected.package.standard" value="" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Jest.Member service">
+    <configuration name="Member service" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/app/modules/member/services/__test__/Members.service.spec.ts" />
+      <test-names>
+        <test-name value="Member service" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -58,6 +110,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.dev" />
+        <item itemvalue="Jest.Member service" />
       </list>
     </recent_temporary>
   </component>
@@ -69,7 +122,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1663000234376</updated>
-      <workItem from="1663000236041" duration="4803000" />
+      <workItem from="1663000236041" duration="5455000" />
+      <workItem from="1663177713152" duration="5838000" />
+      <workItem from="1663183662539" duration="2871000" />
     </task>
     <task id="LOCAL-00001" summary="project setup finished">
       <created>1663005025215</created>
@@ -85,7 +140,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663005035514</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="project setup finished">
+      <created>1663005378088</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1663005378088</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -101,6 +163,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="project setup finished" />

@@ -8,7 +8,7 @@ export class AuthApi extends BaseApi implements IAuthApi {
 		return await this.post<string>('/auth/login', payload);
 	}
 
-	async getMe(token: string): Promise<IUser> {
+	async getMe(_token: string): Promise<IUser> {
 		throw new Error('Method not implemented');
 	}
 }

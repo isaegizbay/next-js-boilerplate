@@ -1,4 +1,5 @@
 /* eslint-disable */
+export {};
 expect.extend({
 	nullOrAny(received, expected) {
 		if (received === null) {

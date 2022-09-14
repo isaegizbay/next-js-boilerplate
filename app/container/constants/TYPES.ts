@@ -5,10 +5,12 @@ export const TYPES = {
 	MockAxiosActionTypes: Symbol.for('MockAxiosActionTypes'),
 
 	// Auth
+	AuthModule: Symbol.for('AuthModule'),
 	AuthService: Symbol.for('AuthService'),
 	AuthApi: Symbol.for('AuthApi'),
 
 	// Member
+	MemberModule: Symbol.for('MemberModule'),
 	MemberService: Symbol.for('MemberService'),
 	MemberApi: Symbol.for('MemberApi')
 };

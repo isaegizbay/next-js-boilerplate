@@ -37,23 +37,23 @@ export class Guest implements IUser {
 		console.log('LOGGING GUEST: ', { user: this });
 	}
 
-	canCreateEntity(entityName: EntityNames): boolean {
+	canCreateEntity(_entityName: EntityNames): boolean {
 		return false;
 	}
 
-	canDeleteEntity(entityName: EntityNames): boolean {
+	canDeleteEntity(_entityName: EntityNames): boolean {
 		return false;
 	}
 
-	canEditEntity(entityName: EntityNames): boolean {
+	canEditEntity(_entityName: EntityNames): boolean {
 		return false;
 	}
 
-	canViewEntityDetails(entityName: EntityNames): boolean {
+	canViewEntityDetails(_entityName: EntityNames): boolean {
 		return false;
 	}
 
-	canViewEntityList(entityName: EntityNames): boolean {
+	canViewEntityList(_entityName: EntityNames): boolean {
 		return false;
 	}
 }

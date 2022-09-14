@@ -1,30 +1,25 @@
+import { inject, injectable } from 'inversify';
 import { EntityModule } from 'app/shared/Entity/classes';
 import { Member } from 'app/modules/member/models';
-import {
+import type {
 	CreateMemberPayload,
+	IMemberModuleState,
 	IMemberService,
+	MemberActions,
 	UpdateMemberPayload
 } from 'app/modules/member/types';
-import type { IMemberModuleState } from 'app/modules/member/types/IMemberModuleState';
-import { memberSlice } from 'app/modules/member/storage/memberSlice';
-import { AppDispatch } from '../../../storage/types';
+import { TYPES } from 'app/container/constants/TYPES';
 
+@injectable()
 export class MemberModule extends EntityModule<
 	Member,
 	CreateMemberPayload,
-	UpdateMemberPayload
+	UpdateMemberPayload,
+	IMemberModuleState,
+	MemberActions
 > {
-	constructor(
-		protected _service: IMemberService,
-		protected _state: IMemberModuleState,
-		protected _actions: typeof memberSlice.actions,
-		protected _dispatch: AppDispatch
-	) {
-		super(_service, _state, _actions, _dispatch);
-	}
-
-	get state() {
-		return this._state;
+	constructor(@inject(TYPES.MemberService) protected _service: IMemberService) {
+		super(_service);
 	}
 
 	increment() {
