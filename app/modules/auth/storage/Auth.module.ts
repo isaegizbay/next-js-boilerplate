@@ -4,19 +4,17 @@ import { UserTypes } from '../../../shared/User/enums';
 import { Developer, Guest, Maintainer } from '../../../shared/User/classes';
 import { IAuthModuleState, LoginPayload } from '../types';
 import { authSlice } from './authSlice';
-import { AppDispatch } from 'app/storage/types';
 import { Module } from 'app/storage/classes/Module';
+import { mutation } from 'app/storage/decorators';
+import { inject, injectable } from 'inversify';
+import { TYPES } from 'app/container/constants/TYPES';
 
+@injectable()
 export class AuthModule extends Module<
 	IAuthModuleState,
 	typeof authSlice.actions
 > {
-	constructor(
-		protected authService: AuthService,
-		protected _state: IAuthModuleState,
-		protected _actions: typeof authSlice.actions,
-		protected _dispatch: AppDispatch
-	) {
+	constructor(@inject(TYPES.AuthService) protected authService: AuthService) {
 		super();
 	}
 
@@ -53,18 +51,16 @@ export class AuthModule extends Module<
 			: null;
 	}
 
+	@mutation
 	setAuthDto(authDto: AuthDto | null) {
-		this._dispatch(this._actions.setAuthDto(authDto));
 		this.authService.setUserToLocalStorage(authDto);
 	}
 
-	setAuthLoading(isLoading: boolean) {
-		this._dispatch(this._actions.setAuthLoading(isLoading));
-	}
+	@mutation
+	setAuthLoading(_isLoading: boolean) {}
 
-	setUserLoading(isLoading: boolean) {
-		this._dispatch(this._actions.setUserLoading(isLoading));
-	}
+	@mutation
+	setUserLoading(_isLoading: boolean) {}
 
 	async login(payload: LoginPayload) {
 		try {

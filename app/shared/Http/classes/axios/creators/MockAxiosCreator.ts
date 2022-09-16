@@ -37,6 +37,7 @@ export class MockAxiosCreator implements IAxiosCreator {
 				if (config.headers) {
 					config.headers.Authorization = `Bearer ${LocalStorageHelper.userToken}`;
 				}
+				console.log({ config })
 				return config;
 			},
 			function (error) {
@@ -73,6 +74,7 @@ export class MockAxiosCreator implements IAxiosCreator {
 		// Auth endpoints mock
 		const authApiMock = new AuthApiMock();
 		this.mock.onPost('/auth/login').reply(authApiMock.login);
+		this.mock.onGet('/auth/me').reply(authApiMock.getMe);
 
 		// Member endpoints mock
 		const memberApiMock = new MemberApiMock();

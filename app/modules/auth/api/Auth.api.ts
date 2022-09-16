@@ -4,11 +4,11 @@ import type { LoginPayload } from 'app/modules/auth/types/';
 import { IUser } from 'app/shared/User/types';
 
 export class AuthApi extends BaseApi implements IAuthApi {
-	async login(payload: LoginPayload): Promise<string> {
-		return await this.post<string>('/auth/login', payload);
+	login(payload: LoginPayload): Promise<string> {
+		return this.post<string>('/auth/login', payload);
 	}
 
-	async getMe(_token: string): Promise<IUser> {
-		throw new Error('Method not implemented');
+	async getMe(token: string): Promise<IUser> {
+		return this.get<IUser>('/auth/me', { params: { token } });
 	}
 }

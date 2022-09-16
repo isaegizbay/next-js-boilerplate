@@ -6,18 +6,21 @@ import type {
 	IEntityServiceStrategy
 } from '../types';
 import { EntityFormMode } from '../enums';
-import { entityReducers } from '../constants';
 import { CaseReducerActions } from '@reduxjs/toolkit';
 import { Module } from 'app/storage/classes/Module';
+import { getEntityReducers } from '../functions/getEntityReducers';
+import { mutation } from '../../../storage/decorators';
 
 @injectable()
 export class EntityModule<
-	Entity extends IEntity,
-	CreateEntityPayload,
-	UpdateEntityPayload,
-	State extends IEntityModuleState<Entity>,
-	Actions extends CaseReducerActions<typeof entityReducers>
-> extends Module<State, Actions> {
+		Entity extends IEntity,
+		CreateEntityPayload,
+		UpdateEntityPayload,
+		State extends IEntityModuleState<Entity>,
+		Actions extends CaseReducerActions<ReturnType<typeof getEntityReducers>>
+	>
+	extends Module<State, Actions>
+{
 	constructor(
 		protected _service: IEntityServiceStrategy<
 			Entity,
@@ -28,52 +31,32 @@ export class EntityModule<
 		super();
 	}
 
-	setIsEntityModalOpen(isOpen: boolean) {
-		this._dispatch(this._actions.setIsEntityModalOpen(isOpen));
-	}
+	@mutation
+	setIsEntityModalOpen(_isOpen: boolean) {}
 
-	setEntityFormMode(mode: EntityFormMode) {
-		this._dispatch(this._actions.setEntityFormMode(mode));
-	}
+	@mutation
+	setEntityFormMode(_mode: EntityFormMode) {}
 
-	setResource(resource: IEntityPagination<Entity>) {
-		this._dispatch(this._actions.setResource(resource));
-	}
+	@mutation
+	setResource(_resource: IEntityPagination<Entity>) {}
 
-	setIsResourceLoading(isLoading: boolean) {
-		this._dispatch(this._actions.setIsResourceLoading(isLoading));
-	}
+	@mutation
+	setIsResourceLoading(_isLoading: boolean) {}
 
-	setIsCreateLoading(isLoading: boolean) {
-		this._dispatch(this._actions.setIsCreateLoading(isLoading));
-	}
+	@mutation
+	setIsCreateLoading(_isLoading: boolean) {}
 
-	setIsEditLoading(isLoading: boolean) {
-		this._dispatch(this._actions.setIsEditLoading(isLoading));
-	}
+	@mutation
+	setIsEditLoading(_isLoading: boolean) {}
 
-	setEditingId(id: number | null) {
-		this._dispatch(this._actions.setEditingId(id));
-	}
+	@mutation
+	setEditingId(_id: number | null) {}
 
-	setDeletingId(id: number | null) {
-		this._dispatch(this._actions.setDeletingId(id));
-	}
+	@mutation
+	setDeletingId(_id: number | null) {}
 
-	resetState() {
-		this._dispatch(
-			this._actions.resetState({
-				deletingId: null,
-				editingId: null,
-				entityFormMode: EntityFormMode.CREATE,
-				isCreateLoading: false,
-				isEditLoading: false,
-				isEntityModalOpen: false,
-				isResourceLoading: false,
-				resource: null
-			})
-		);
-	}
+	@mutation
+	resetState() {}
 
 	fetch(page = 1) {
 		this.setIsResourceLoading(true);

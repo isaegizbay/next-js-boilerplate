@@ -1,6 +1,8 @@
 import { CaseReducerActions, SliceCaseReducers } from '@reduxjs/toolkit';
 import { AppDispatch } from '../types';
+import { injectable } from "inversify";
 
+@injectable()
 export abstract class Module<
 	State,
 	Actions extends CaseReducerActions<SliceCaseReducers<State>>

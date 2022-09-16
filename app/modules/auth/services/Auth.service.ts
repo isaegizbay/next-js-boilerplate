@@ -1,17 +1,15 @@
-import type { AuthDto, IUser } from "app/shared/User/types";
-import type { IAuthApi, LoginPayload } from "../types";
-import { injectable } from "inversify";
-import { LocalStorageHelper } from "app/utils";
-import { UserAuthFactory } from "app/shared/User/classes";
+import type { AuthDto, IUser } from 'app/shared/User/types';
+import type { IAuthApi, LoginPayload } from '../types';
+import { inject, injectable } from 'inversify';
+import { LocalStorageHelper } from 'app/utils';
+import { UserAuthFactory } from 'app/shared/User/classes';
+import { TYPES } from 'app/container/constants/TYPES';
 
 @injectable()
 export class AuthService {
 	private userInstance?: IUser;
-	private authApi: IAuthApi;
 
-	constructor(
-		authApi: IAuthApi
-	) {
+	constructor(@inject(TYPES.AuthApi) private authApi: IAuthApi) {
 		this.authApi = authApi;
 	}
 

@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IMemberModuleState } from 'app/modules/member/types/IMemberModuleState';
 import { EntityNames } from 'app/shared/Entity/enums';
-import { entityReducers } from 'app/shared/Entity/constants/entityReducers';
 import { Member } from '../models';
 import { getEntityInitialState } from 'app/shared/Entity/functions';
+import { getEntityReducers } from "../../../shared/Entity/functions/getEntityReducers";
 
 const initialState: IMemberModuleState = {
 	...getEntityInitialState<Member>(),
@@ -14,7 +14,7 @@ export const memberSlice = createSlice({
 	name: EntityNames.MEMBER,
 	initialState,
 	reducers: {
-		...entityReducers,
+		...getEntityReducers(initialState),
 		increment(state) {
 			state.counter++;
 		}

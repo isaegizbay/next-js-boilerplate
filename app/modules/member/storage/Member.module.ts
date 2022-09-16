@@ -9,6 +9,7 @@ import type {
 	UpdateMemberPayload
 } from 'app/modules/member/types';
 import { TYPES } from 'app/container/constants/TYPES';
+import { mutation } from "../../../storage/decorators";
 
 @injectable()
 export class MemberModule extends EntityModule<
@@ -22,7 +23,6 @@ export class MemberModule extends EntityModule<
 		super(_service);
 	}
 
-	increment() {
-		this._dispatch(this._actions.increment());
-	}
+	@mutation
+	increment() {}
 }

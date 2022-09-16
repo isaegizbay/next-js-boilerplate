@@ -4,14 +4,17 @@ import Image from 'next/image';
 import { useMemberModule } from 'app/modules/member/storage';
 import { useEffectOnce } from 'app/utils/hooks/';
 import styles from '../styles/Home.module.css';
+import { useAuthModule } from '../app/modules/auth/storage';
 
 const Home: NextPage = () => {
+	const authModule = useAuthModule();
 	const memberModule = useMemberModule();
 	useEffectOnce(() => {
-		memberModule.fetch(1);
-
-		memberModule.increment();
-		console.log(memberModule.state.counter);
+		authModule.login({ email: 'john.doe.developer@gmail.com', password: '123' }).then(() => {
+			memberModule.fetch(1);
+			memberModule.increment();
+			console.log(memberModule.state.counter);
+		});
 	});
 
 	return (
@@ -33,6 +36,7 @@ const Home: NextPage = () => {
 				</p>
 
 				<button onClick={() => memberModule.increment()}>increment</button>
+				<button onClick={() => memberModule.resetState()}>reset</button>
 
 				<button onClick={() => console.log(memberModule.state.counter)}>
 					logCounter {memberModule.state.counter}
