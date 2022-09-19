@@ -37,7 +37,6 @@ export class MockAxiosCreator implements IAxiosCreator {
 				if (config.headers) {
 					config.headers.Authorization = `Bearer ${LocalStorageHelper.userToken}`;
 				}
-				console.log({ config })
 				return config;
 			},
 			function (error) {

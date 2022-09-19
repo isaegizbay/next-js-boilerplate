@@ -2,7 +2,7 @@ import { BaseApiMock } from '../BaseApiMock';
 import { AxiosRequestConfig } from 'axios';
 import { MockHttpsError } from '../MockHttpsError';
 import { MemberMocksData } from '../member/MemberMocksData';
-import type { AuthDto, IUser } from 'app/shared/User/types';
+import type { AuthDto } from 'app/shared/User/types';
 
 export class AuthApiMock extends BaseApiMock {
 	login(config: AxiosRequestConfig): Promise<[number, string]> {
@@ -27,7 +27,7 @@ export class AuthApiMock extends BaseApiMock {
 				}
 
 				resolve([200, user.token]);
-			}, 0);
+			}, 1000);
 		});
 	}
 
@@ -50,7 +50,7 @@ export class AuthApiMock extends BaseApiMock {
 				}
 
 				resolve([200, JSON.stringify(user)]);
-			}, 0);
+			}, 1000);
 		});
 	}
 }

@@ -2,12 +2,13 @@ import { AuthService } from '../services';
 import { AuthDto } from 'app/shared/User/types';
 import { UserTypes } from '../../../shared/User/enums';
 import { Developer, Guest, Maintainer } from '../../../shared/User/classes';
-import { IAuthModuleState, LoginPayload } from '../types';
+import type { IAuthModuleState, LoginPayload } from '../types';
 import { authSlice } from './authSlice';
 import { Module } from 'app/storage/classes/Module';
-import { mutation } from 'app/storage/decorators';
+import { action, mutation } from 'app/storage/decorators';
 import { inject, injectable } from 'inversify';
 import { TYPES } from 'app/container/constants/TYPES';
+import CancelablePromise from "cancelable-promise";
 
 @injectable()
 export class AuthModule extends Module<
@@ -62,7 +63,8 @@ export class AuthModule extends Module<
 	@mutation
 	setUserLoading(_isLoading: boolean) {}
 
-	async login(payload: LoginPayload) {
+	@action
+	async login(payload: LoginPayload): CancelablePromise {
 		try {
 			this.setAuthLoading(true);
 			const token = await this.authService.login(payload);

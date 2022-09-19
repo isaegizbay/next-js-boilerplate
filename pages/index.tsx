@@ -2,20 +2,27 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useMemberModule } from 'app/modules/member/storage';
-import { useEffectOnce } from 'app/utils/hooks/';
 import styles from '../styles/Home.module.css';
 import { useAuthModule } from '../app/modules/auth/storage';
+import { useEffect } from "react";
+import Link from "next/link";
 
 const Home: NextPage = () => {
 	const authModule = useAuthModule();
 	const memberModule = useMemberModule();
-	useEffectOnce(() => {
-		authModule.login({ email: 'john.doe.developer@gmail.com', password: '123' }).then(() => {
+	useEffect(() => {
+		const loginPromise = authModule.login({ email: 'john.doe.developer@gmail.com', password: '123' });
+
+		loginPromise.then(() => {
 			memberModule.fetch(1);
 			memberModule.increment();
 			console.log(memberModule.state.counter);
 		});
-	});
+
+		return () => {
+			loginPromise.cancel();
+		}
+	}, []);
 
 	return (
 		<div className={styles.container}>
@@ -33,7 +40,10 @@ const Home: NextPage = () => {
 				<p className={styles.description}>
 					Get started by editing{' '}
 					<code className={styles.code}>pages/index.tsx</code>
-				</p>
+				</p
+				>
+
+				<Link href={'/members'}>Members</Link>
 
 				<button onClick={() => memberModule.increment()}>increment</button>
 				<button onClick={() => memberModule.resetState()}>reset</button>
