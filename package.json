@@ -7,7 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"test:unit:dev": "jest --watchAll --coverage --no-cache --config jest.config.js"
+		"test:unit:dev": "src/jest --watchAll --coverage --no-cache --config jest.config.js"
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.8.5",
