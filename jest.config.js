@@ -8,24 +8,28 @@ const createJestConfig = nextJest({
 
 const config = {
 	setupFilesAfterEnv: [
-		'<rootDir>/jest/setup.ts',
-		'<rootDir>/jest/nullOrAny.ts'
+		'<rootDir>/src/jest/setup.ts',
+		'<rootDir>/src/jest/nullOrAny.ts'
 	],
 	testEnvironment: 'jest-environment-jsdom',
 	moduleDirectories: ['node_modules', __dirname],
-	coverageDirectory: '<rootDir>/jest/coverage/',
+	moduleNameMapper: {
+		'@app/(.*)': ['<rootDir>/src/app/$1'],
+		'@styles/(.*)': ['<rootDir>/src/styles/$1']
+	},
+	coverageDirectory: '<rootDir>/src/jest/coverage/',
 	collectCoverage: true,
 	collectCoverageFrom: [
-		'<rootDir>/app/**/*.ts',
-		'<rootDir>/app/**/*.tsx',
-		'!<rootDir>/app/**/*.locale.ts',
-		'!<rootDir>/app/**/constants/*',
-		'!<rootDir>/app/**/enums/*',
-		'!<rootDir>/app/**/types/*',
-		'!<rootDir>/app/storage/*',
-		'!<rootDir>/**/index.ts',
-		'<rootDir>/components/**/*.tsx',
-		'<rootDir>/pages/**/*.tsx'
+		'<rootDir>/src/app/**/*.ts',
+		'<rootDir>/src/app/**/*.tsx',
+		'!<rootDir>/src/app/**/*.locale.ts',
+		'!<rootDir>/src/app/**/constants/*',
+		'!<rootDir>/src/app/**/enums/*',
+		'!<rootDir>/src/app/**/types/*',
+		'!<rootDir>/src/app/storage/*',
+		'!<rootDir>/src/**/index.ts',
+		'<rootDir>/src/components/**/*.tsx',
+		'<rootDir>/src/pages/**/*.tsx'
 	]
 };
 
