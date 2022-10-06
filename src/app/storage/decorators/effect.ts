@@ -1,7 +1,7 @@
 import { cancelable, CancelablePromise } from "cancelable-promise";
 import { Module } from "@app/storage/classes/Module";
 
-export const action = (target: any, propertyKey: string, descriptor: TypedPropertyDescriptor<(...args: any[]) => CancelablePromise>) => {
+export const effect = (target: any, propertyKey: string, descriptor: TypedPropertyDescriptor<(...args: any[]) => CancelablePromise>) => {
     const method = descriptor.value;
 
 

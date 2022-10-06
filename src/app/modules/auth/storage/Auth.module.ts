@@ -10,7 +10,7 @@ import { Maintainer } from '@app/shared/User/classes/Maintainer';
 import { Developer } from '@app/shared/User/classes/Developer';
 import { Guest } from '@app/shared/User/classes/Guest';
 import { mutation } from '@app/storage/decorators/mutation';
-import { action } from '@app/storage/decorators/action';
+import { effect } from '@app/storage/decorators/effect';
 import type { AuthDto } from '@app/shared/User/types/AuthDto';
 import type { LoginPayload } from '@app/modules/auth/types/LoginPayload';
 import { AxiosError } from 'axios';
@@ -68,7 +68,7 @@ export class AuthModule extends Module<
 	@mutation
 	setUserLoading(_isLoading: boolean) {}
 
-	@action
+	@effect
 	async login(payload: LoginPayload): CancelablePromise {
 		this.setAuthLoading(true);
 
@@ -91,7 +91,7 @@ export class AuthModule extends Module<
 		localStorage.clear();
 	}
 
-	@action
+	@effect
 	async getUser(token: string): CancelablePromise {
 		this.setUserLoading(true);
 		await this.authService.getUserByToken(token, {

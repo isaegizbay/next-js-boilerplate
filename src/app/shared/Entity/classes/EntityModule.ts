@@ -8,7 +8,7 @@ import type { IEntity } from "@app/shared/Entity/types/IEntity";
 import type { IEntityModuleState } from "@app/shared/Entity/types/IEntityModuleState";
 import type { IEntityServiceStrategy } from "@app/shared/Entity/types/IEntityServiceStrategy";
 import type { IEntityPagination } from "@app/shared/Entity/types/IEntityPagination";
-import { action } from "@app/storage/decorators/action";
+import { effect } from "@app/storage/decorators/effect";
 import { CancelablePromise } from "cancelable-promise";
 
 @injectable()
@@ -58,7 +58,7 @@ export class EntityModule<
 	@mutation
 	resetState() {}
 
-	@action
+	@effect
 	async fetch(page = 1): CancelablePromise {
 		this.setIsResourceLoading(true);
 		await this._service.fetchRecords(page, {
@@ -85,9 +85,10 @@ export class EntityModule<
 		this.setIsResourceLoading(false);
 	}
 
-	create(payload: CreateEntityPayload) {
+	@effect
+	async create(payload: CreateEntityPayload): CancelablePromise {
 		this.setIsCreateLoading(true);
-		this._service.createRecord(payload, {
+		await this._service.createRecord(payload, {
 			handleSuccess: (data) => {
 				this.fetch();
 				console.log(data);
@@ -109,12 +110,15 @@ export class EntityModule<
 				console.error('Create action failed, unexpected error', error);
 			}
 		});
+		this.setIsCreateLoading(false);
 	}
 
-	edit(payload: UpdateEntityPayload) {
+	@effect
+	async edit(payload: UpdateEntityPayload): CancelablePromise {
 		this.setIsEditLoading(true);
 		const p = { id: this.state.editingId, ...payload };
-		this._service.updateRecord(p, {
+
+		await this._service.updateRecord(p, {
 			handleSuccess: (data) => {
 				console.log(data);
 				this.fetch();
@@ -137,15 +141,18 @@ export class EntityModule<
 				console.error('Edit action failed, unexpected error', error);
 			}
 		});
+
+		this.setIsEditLoading(false);
 	}
 
-	delete(id: number) {
+	@effect
+	async delete(id: number): CancelablePromise {
 		this.setDeletingId(id);
-		this._service.deleteRecord(id, {
+
+		await this._service.deleteRecord(id, {
 			handleSuccess: (data) => {
 				console.log(data);
 				this.fetch();
-				this.setDeletingId(null);
 			},
 			// TODO handle errors properly
 			handleClientError(error: Error) {
@@ -164,5 +171,7 @@ export class EntityModule<
 				console.error('Delete action failed, unexpected error', error);
 			}
 		});
+
+		this.setDeletingId(null);
 	}
 }
