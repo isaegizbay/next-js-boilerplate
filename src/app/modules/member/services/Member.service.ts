@@ -1,16 +1,16 @@
 import { inject, injectable } from 'inversify';
-import { TYPES } from "@app/container/constants/TYPES";
-import type { IMemberService } from "@app/modules/member/types/IMemberService";
-import type { IMemberApi } from "@app/modules/member/types/IMemberApi";
-import type { IApiResponseCallbacks } from "@app/shared/Http/types/IApiResponseCallbacks";
-import type { MemberDto } from "@app/modules/member/types/MemberDto";
-import type { IEntityPagination } from "@app/shared/Entity/types/IEntityPagination";
-import { Member } from "@app/modules/member/models/Member.model";
-import { LocalStorageHelper } from "@app/utils/classses/LocalStorageHelper";
-import type { AuthDto } from "@app/shared/User/types/AuthDto";
-import { handleHttpError } from "@app/shared/Http/functions/handleHttpError";
-import type { CreateMemberPayload } from "@app/modules/member/types/CreateMemberPayload";
-import type { UpdateMemberPayload } from "@app/modules/member/types/UpdateMemberPayload";
+import { TYPES } from '@app/container/constants/TYPES';
+import type { IMemberService } from '@app/modules/member/types/IMemberService';
+import type { IMemberApi } from '@app/modules/member/types/IMemberApi';
+import type { IApiResponseCallbacks } from '@app/shared/Http/types/IApiResponseCallbacks';
+import type { MemberDto } from '@app/modules/member/types/MemberDto';
+import type { IEntityPagination } from '@app/shared/Entity/types/IEntityPagination';
+import { Member } from '@app/modules/member/models/Member.model';
+import { LocalStorageHelper } from '@app/utils/classses/LocalStorageHelper';
+import type { AuthDto } from '@app/shared/User/types/AuthDto';
+import { handleHttpError } from '@app/shared/Http/functions/handleHttpError';
+import type { CreateMemberPayload } from '@app/modules/member/types/CreateMemberPayload';
+import type { UpdateMemberPayload } from '@app/modules/member/types/UpdateMemberPayload';
 
 @injectable()
 export class MemberService implements IMemberService {
@@ -35,7 +35,7 @@ export class MemberService implements IMemberService {
 		}
 	}
 
-	fetchRecord(): Promise<Member> {
+	async fetchRecord() {
 		throw new Error('Method not implemented.');
 	}
 
@@ -66,10 +66,7 @@ export class MemberService implements IMemberService {
 		}
 	}
 
-	async deleteRecord(
-		entityId: number,
-		callbacks: IApiResponseCallbacks
-	): Promise<void> {
+	async deleteRecord(entityId: number, callbacks: IApiResponseCallbacks) {
 		try {
 			const response = await this.apiInstance.deleteEntity(entityId);
 			callbacks.handleSuccess(response);

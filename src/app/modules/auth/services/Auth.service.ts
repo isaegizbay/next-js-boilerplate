@@ -6,6 +6,8 @@ import type { LoginPayload } from "@app/modules/auth/types/LoginPayload";
 import type { AuthDto } from "@app/shared/User/types/AuthDto";
 import { UserAuthFactory } from "@app/shared/User/classes/UserFactory";
 import { LocalStorageHelper } from "@app/utils/classses/LocalStorageHelper";
+import { IApiResponseCallbacks } from "@app/shared/Http/types/IApiResponseCallbacks";
+import { handleHttpError } from "@app/shared/Http/functions/handleHttpError";
 
 @injectable()
 export class AuthService {
@@ -15,8 +17,13 @@ export class AuthService {
 		this.authApi = authApi;
 	}
 
-	login(payload: LoginPayload): Promise<string> {
-		return this.authApi.login(payload);
+	async login(payload: LoginPayload, callbacks: IApiResponseCallbacks<string>) {
+		try {
+			const response = await this.authApi.login(payload);
+			callbacks.handleSuccess(response);
+		} catch (e) {
+			handleHttpError(e, callbacks);
+		}
 	}
 
 	buildUserInstance(authDto: AuthDto) {
@@ -37,14 +44,13 @@ export class AuthService {
 		return LocalStorageHelper.user;
 	}
 
-	async getUserByToken(token: string) {
+	async getUserByToken(token: string, callbacks: IApiResponseCallbacks<IUser>) {
 		try {
 			const authDto = await this.authApi.getMe(token);
-			return this.buildUserInstance(authDto);
+			const user = this.buildUserInstance(authDto);
+			callbacks.handleSuccess(user);
 		} catch (error) {
-			// eslint-disable-next-line no-console
-			console.error("Couldn't get user: ", error);
-			throw error;
+			handleHttpError(error, callbacks);
 		}
 	}
 }

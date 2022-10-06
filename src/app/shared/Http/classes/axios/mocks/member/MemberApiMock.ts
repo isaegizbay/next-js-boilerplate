@@ -101,7 +101,7 @@ export class MemberApiMock extends BaseApiMock {
 				};
 
 				resolve([200, JSON.stringify(response)]);
-			}, 0);
+			}, 3000);
 		});
 	}
 

@@ -2,26 +2,34 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '@styles/Home.module.css';
-import { useEffect } from "react";
-import Link from "next/link";
-import { useAuthModule } from "@app/modules/auth/storage/useAuthModule";
-import { useMemberModule } from "@app/modules/member/storage/useMemberModule";
+import { useEffect } from 'react';
+import Link from 'next/link';
+import { useAuthModule } from '@app/modules/auth/storage/useAuthModule';
+import { useMemberModule } from '@app/modules/member/storage/useMemberModule';
+import { CancelablePromise } from 'cancelable-promise';
 
 const Home: NextPage = () => {
 	const authModule = useAuthModule();
 	const memberModule = useMemberModule();
 	useEffect(() => {
-		const loginPromise = authModule.login({ email: 'john.doe.developer@gmail.com', password: '123' });
-
+		const loginPromise = authModule.login({
+			email: 'john.doe.developer@gmail.com',
+			password: '123'
+		});
+		let memberFetchPromise: CancelablePromise;
 		loginPromise.then(() => {
-			memberModule.fetch(1);
-			memberModule.increment();
-			console.log(memberModule.state.counter);
+			memberFetchPromise = memberModule.fetch(1);
+
+			memberFetchPromise.then(() => {
+				memberModule.increment();
+				console.log(memberModule.state.counter);
+			});
 		});
 
 		return () => {
 			loginPromise.cancel();
-		}
+			memberFetchPromise?.cancel();
+		};
 	}, []);
 
 	return (
@@ -40,10 +48,13 @@ const Home: NextPage = () => {
 				<p className={styles.description}>
 					Get started by editing{' '}
 					<code className={styles.code}>pages/index.tsx</code>
-				</p
-				>
+				</p>
 
 				<Link href={'/members'}>Members</Link>
+
+				<span>{authModule.state.isAuthLoading ? 'AUTH token loading' : 'loaded' }</span>
+				<span>{authModule.state.isUserLoading ? 'AUTH user loading': 'loaded'}</span>
+				<span>{memberModule.state.isResourceLoading ? 'MEMBER resource loading' : 'loaded'}</span>
 
 				<button onClick={() => memberModule.increment()}>increment</button>
 				<button onClick={() => memberModule.resetState()}>reset</button>
@@ -99,5 +110,4 @@ const Home: NextPage = () => {
 	);
 };
 
-// noinspection JSUnusedGlobalSymbols
 export default Home;

@@ -8,6 +8,8 @@ import type { IEntity } from "@app/shared/Entity/types/IEntity";
 import type { IEntityModuleState } from "@app/shared/Entity/types/IEntityModuleState";
 import type { IEntityServiceStrategy } from "@app/shared/Entity/types/IEntityServiceStrategy";
 import type { IEntityPagination } from "@app/shared/Entity/types/IEntityPagination";
+import { action } from "@app/storage/decorators/action";
+import { CancelablePromise } from "cancelable-promise";
 
 @injectable()
 export class EntityModule<
@@ -56,12 +58,12 @@ export class EntityModule<
 	@mutation
 	resetState() {}
 
-	fetch(page = 1) {
+	@action
+	async fetch(page = 1): CancelablePromise {
 		this.setIsResourceLoading(true);
-		this._service.fetchRecords(page, {
+		await this._service.fetchRecords(page, {
 			handleSuccess: (data) => {
 				this.setResource(data);
-				this.setIsResourceLoading(false);
 			},
 			// TODO handle errors properly
 			handleClientError(error: Error) {
@@ -80,6 +82,7 @@ export class EntityModule<
 				console.error('Fetch action failed, client error', error);
 			}
 		});
+		this.setIsResourceLoading(false);
 	}
 
 	create(payload: CreateEntityPayload) {
